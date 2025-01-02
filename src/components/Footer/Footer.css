@@ -1,12 +1,13 @@
 .footer {
   width: 100%;
-  margin: 0 auto;
-  padding: 4rem 1rem 1rem;
+  margin: 100px auto 0;
+  padding: 10rem 1rem 1rem;
   background: #10100e;
 }
+
 @media (max-width: 425px) {
   .footer {
-    padding-top: 2rem;
+    padding-top: 8rem;
   }
 }
 
@@ -31,7 +32,7 @@
 
 @media (max-width: 425px) {
   .footer__container {
-    padding: 0 0 2rem;
+    padding: 0 0 0.5rem;
   }
 }
 
@@ -45,9 +46,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   align-content: center;
   width: 100%;
+  flex-wrap: nowrap;
 }
 
 .footer__nav--brands {
@@ -78,7 +80,7 @@
   text-transform: uppercase;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
   gap: 2rem;
@@ -101,5 +103,5 @@
 }
 
 .footer__thanks {
-  text-align: center;
+  text-align: right;
 }

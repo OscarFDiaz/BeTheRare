@@ -19,14 +19,17 @@
 
 @media (max-width: 760px) {
   .navigator__container {
-    padding: 1rem;
+    padding: 0rem;
+  }
+
+  .footer__nav--main {
+    display: none;
   }
 }
 
 @media (max-width: 425px) {
   .navigator__container {
     flex-direction: column;
-    gap: 2rem;
   }
 }
 
@@ -59,10 +62,5 @@
 
 .navigator__picture {
   width: 100px;
-}
-
-@media (max-width: 425px) {
-  .navigator__picture {
-    width: 100%;
-  }
+  margin-right: auto;
 }

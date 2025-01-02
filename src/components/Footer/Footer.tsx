@@ -17,7 +17,7 @@ export const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer__container">
-        <nav className="footer__nav">
+        <nav className="footer__nav footer__nav--main">
           <picture className="footer__picture">
             <img src={BETHERARE} alt="Logo" loading="lazy" />
           </picture>
