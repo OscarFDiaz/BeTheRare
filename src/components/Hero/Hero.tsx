@@ -14,8 +14,7 @@ export const Hero = () => {
       <b style={{ fontWeight: 700 }}>RARE</b>
     </>,
     <>
-      BE <b style={{ fontWeight: 700 }}>RARE</b>, <br />
-      BE YOU
+      BE <b style={{ fontWeight: 700 }}>RARE</b>, BE YOU
     </>,
     <>
       DARE TO <b style={{ fontWeight: 700 }}>WEAR</b>, BE THE{' '}
