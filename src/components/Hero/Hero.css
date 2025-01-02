@@ -56,6 +56,7 @@
   text-align: left;
   text-wrap: balance;
   white-space: normal;
+  user-select: none;
 
   position: absolute; /* Posiciona las frases en el mismo lugar */
   width: 100%; /* Asegura que las frases ocupen todo el ancho del contenedor */
@@ -125,6 +126,7 @@
   text-align: left;
   text-wrap: balance;
   white-space: nowrap;
+  user-select: none;
 }
 
 @media (max-width: 425px) {
