@@ -129,10 +129,14 @@
   user-select: none;
 }
 
-@media (max-width: 425px) {
+@media (max-width: 440px) {
   .hero__title {
     font-size: 3rem;
     white-space: normal;
     display: none;
+  }
+
+  .input {
+    max-width: 280px;
   }
 }

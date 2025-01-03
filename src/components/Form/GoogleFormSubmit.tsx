@@ -5,23 +5,58 @@ import './Form.css';
 export const GoogleFormSubmit = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    // URL del endpoint del formulario de Google
     const googleFormEndpoint =
       'https://docs.google.com/forms/u/0/d/e/1FAIpQLSca3aW4_KNqJ993PUqRMJmfgD2LhfKI6aKsJe5MWmMaGoJ_lg/formResponse';
 
-    // Configura los datos con el campo correspondiente al formulario
+    const validateEmailWithAPI = async (email: string) => {
+      const apiKey = import.meta.env.VITE_MAIL_KEY;
+
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://apilayer.net/api/check?access_key=${apiKey}&email=${email}`,
+        );
+        const data = await response.json();
+        setLoading(false);
+
+        // Manejar el caso del límite de solicitudes (104)
+        if (data.error?.code === 104) {
+          console.warn('Límite de solicitudes alcanzado. Continuando sin validación.');
+          return true; // Ignorar la validación de la API
+        }
+
+        // Validar correo si la API responde correctamente
+        if (data.format_valid && data.smtp_check && data.score >= 0.6) {
+          return true; // Correo válido
+        } else {
+          return false; // Correo inválido
+        }
+      } catch (error) {
+        setLoading(false);
+        console.error('Error al conectar con la API:', error);
+        return false; // Asumir correo inválido si ocurre un error desconocido
+      }
+    };
+
+    const isValid = await validateEmailWithAPI(email);
+    if (!isValid) {
+      setMessage('Correo inválido. Intenta con otro correo.');
+      return; // Detener el flujo si el correo no es válido
+    }
+
     const formData = new FormData();
-    formData.append('emailAddress', email); // El campo debe coincidir con el payload que viste
+    formData.append('emailAddress', email);
 
     try {
       await fetch(googleFormEndpoint, {
         method: 'POST',
         body: formData,
-        mode: 'no-cors', // Esto evitará que el navegador intente leer la respuesta
+        mode: 'no-cors',
       });
 
       setMessage('¡Correo enviado exitosamente!');
@@ -49,22 +84,25 @@ export const GoogleFormSubmit = () => {
             </h3>
           </>
         ) : (
-          <form onSubmit={handleSubmit}>
-            <div className="input__wrapper">
-              <input
-                autoComplete="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Ingresa tu correo"
-                required
-                className="input"
-              />
-              <button type="submit" className="subscribe__btn">
-                Enviar
-              </button>
-            </div>
-          </form>
+          <>
+            <form onSubmit={handleSubmit}>
+              <div className="input__wrapper">
+                <input
+                  autoComplete="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Ingresa tu correo"
+                  required
+                  className="input"
+                />
+                <button type="submit" className="subscribe__btn" disabled={loading}>
+                  {!loading ? 'Enviar' : 'Enviando...'}
+                </button>
+              </div>
+            </form>
+            {message && <p style={{ marginTop: '16px' }}>{message}</p>}
+          </>
         )}
       </div>
     </section>
