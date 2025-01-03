@@ -97,7 +97,7 @@ export const GoogleFormSubmit = () => {
                   className="input"
                 />
                 <button type="submit" className="subscribe__btn" disabled={loading}>
-                  {!loading ? 'Enviar' : 'Enviando...'}
+                  {!loading ? 'Enviar' : '⏳'}
                 </button>
               </div>
             </form>
